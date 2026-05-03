@@ -1,0 +1,26 @@
+{
+  "name": "autobazaar",
+  "version": "1.0.0",
+  "description": "AutoBazaar - Second Hand Car & Bike Marketplace",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "cd backend && npm start",
+    "dev": "cd backend && npm run dev",
+    "install-backend": "cd backend && npm install",
+    "setup": "npm run install-backend"
+  },
+  "keywords": [
+    "cars",
+    "bikes",
+    "marketplace",
+    "second-hand",
+    "nodejs",
+    "express",
+    "mongodb"
+  ],
+  "author": "AutoBazaar Team",
+  "license": "MIT",
+  "dependencies": {
+    "mongodb": "^7.1.1"
+  }
+}

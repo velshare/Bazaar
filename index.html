@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoBazaar | Premium Second-Hand Cars & Bikes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ====== RESET & BASE ====== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #ff4d00;
+            --primary-dark: #e64500;
+            --secondary: #1a1a2e;
+            --accent: #00b4d8;
+            --success: #2ecc71;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --light: #f8f9fa;
+            --dark: #121212;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+            --font-primary: 'Poppins', sans-serif;
+            --font-secondary: 'Montserrat', sans-serif;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 16px rgba(0,0,0,0.15);
+            --shadow-lg: 0 8px 32px rgba(0,0,0,0.2);
+            --gradient-primary: linear-gradient(135deg, #ff4d00 0%, #ff8c00 100%);
+            --gradient-dark: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-xl: 30px;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ====== TYPOGRAPHY ====== */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-secondary);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+        }
+
+        /* ====== BUTTONS ====== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: var(--radius-md);
+            font-family: var(--font-primary);
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            outline: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-primary);
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #2a2a4a;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-lg {
+            padding: 16px 36px;
+            font-size: 1.1rem;
+        }
+
+        /* ====== NAVBAR ====== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 0;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 10px 0;
+            background: rgba(255, 255, 255, 0.98);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .logo-text {
+            font-family: var(--font-secondary);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+
+        .logo-highlight {
+            color: var(--primary);
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: var(--radius-md);
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--secondary);
+            cursor: pointer;
+        }
+
+        /* ====== HERO SECTION ====== */
+        .hero-section {
+            position: relative;
+            height: 90vh;
+            min-height: 700px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ff4d00, #ff8c00, #ff4d00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: gradient 3s ease infinite;
+            background-size: 200% auto;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            opacity: 0.9;
+        }
+
+        .hero-search {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+
+        .search-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr auto;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .search-input,
+        .search-select {
+            padding: 15px 20px;
+            border: none;
+            border-radius: var(--radius-lg);
+            background: rgba(255, 255, 255, 0.9);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus,
+        .search-select:focus {
+            box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.3);
+        }
+
+        .search-btn {
+            background: var(--gradient-primary);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: var(--radius-lg);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* ====== SECTIONS ====== */
+        .section {
+            padding: 100px 0;
+        }
+
+        .featured-section {
+            background: var(--light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .filter-btn {
+            padding: 10px 24px;
+            background: white;
+            border: 2px solid var(--light-gray);
+            border-radius: var(--radius-lg);
+            font-family: var(--font-primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        /* ====== VEHICLE CARDS ====== */
+        .vehicles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .vehicle-card {
+            background: white;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .vehicle-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .vehicle-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+
+        .vehicle-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .vehicle-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .vehicle-card:hover .vehicle-image img {
+            transform: scale(1.1);
+        }
+
+        .vehicle-info {
+            padding: 1.5rem;
+        }
+
+        .vehicle-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--secondary);
+        }
+
+        .vehicle-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .vehicle-details {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .vehicle-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        /* ====== STEPS SECTION ====== */
+        .steps-section {
+            background: var(--gradient-dark);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .step-icon {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1.5rem;
+            background: rgba(255, 77, 0, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-icon i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            width: 30px;
+            height: 30px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        /* ====== SELL SECTION ====== */
+        .sell-banner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            background: white;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sell-content {
+            padding: 3rem;
+        }
+
+        .sell-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .sell-features {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .sell-features li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+            color: var(--gray);
+        }
+
+        .sell-features i {
+            color: var(--success);
+        }
+
+        .sell-image {
+            height: 500px;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
+                        url('https://images.unsplash.com/photo-1619441207978-3d326c46e2c9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2069&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* ====== TESTIMONIALS ====== */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .testimonial-rating {
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* ====== CONTACT SECTION ====== */
+        .contact-section {
+            background: var(--gradient-dark);
+            color: white;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 5px;
+        }
+
+        .contact-form {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: var(--radius-xl);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-primary);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            box-shadow: 0 0 0 3px rgba(255, 77, 0, 0.3);
+        }
+
+        /* ====== FOOTER ====== */
+        .footer {
+            background: var(--secondary);
+            color: white;
+            padding: 60px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section ul li a {
+            color: #b3b3b3;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--primary);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .payment-methods-footer {
+            display: flex;
+            gap: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* ====== MODAL ====== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: white;
+            margin: 5% auto;
+            width: 90%;
+            max-width: 500px;
+            border-radius: var(--radius-xl);
+            animation: modalSlide 0.3s ease;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s ease;
+        }
+
+        .close-modal:hover {
+            color: var(--danger);
+        }
+
+        .modal-body {
+            padding: 3rem;
+        }
+
+        /* ====== AUTH FORMS ====== */
+        .auth-tabs {
+            display: flex;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .auth-tab {
+            flex: 1;
+            padding: 1rem;
+            background: none;
+            border: none;
+            font-family: var(--font-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .auth-tab.active {
+            color: var(--primary);
+        }
+
+        .auth-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+        }
+
+        .auth-form {
+            display: none;
+        }
+
+        .auth-form.active {
+            display: block;
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* ====== BUY PAGE ====== */
+        .buy-page {
+            margin-top: 100px;
+            min-height: calc(100vh - 180px);
+        }
+
+        .page-header {
+            padding: 4rem 0;
+            background: var(--gradient-dark);
+            color: white;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        /* ====== SELL PAGE ====== */
+        .sell-form-container {
+            max-width: 800px;
+            margin: 100px auto 50px;
+            padding: 2rem;
+        }
+
+        .sell-form {
+            background: white;
+            border-radius: var(--radius-xl);
+            padding: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .sell-form h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--secondary);
+        }
+
+        /* ====== RESPONSIVE ====== */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .search-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .sell-banner,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-menu {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 80px);
+                background: white;
+                flex-direction: column;
+                padding: 2rem;
+                transition: left 0.3s ease;
+            }
+            
+            .nav-menu.active {
+                left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .hero-stats {
+                gap: 1.5rem;
+            }
+            
+            .stat-item h3 {
+                font-size: 2rem;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 15px;
+            }
+            
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 10% auto;
+            }
+        }
+
+        /* ====== UTILITY CLASSES ====== */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-car"></i>
+                <span class="logo-text">Auto<span class="logo-highlight">Bazaar</span></span>
+            </a>
+            
+            <div class="nav-menu" id="navMenu">
+                <a href="#home" class="nav-link active">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="#buy" class="nav-link">
+                    <i class="fas fa-search"></i> Buy
+                </a>
+                <a href="#sell" class="nav-link">
+                    <i class="fas fa-tag"></i> Sell
+                </a>
+                <a href="#vehicles" class="nav-link">
+                    <i class="fas fa-motorcycle"></i> Vehicles
+                </a>
+                <a href="#about" class="nav-link">
+                    <i class="fas fa-info-circle"></i> About
+                </a>
+                <a href="#contact" class="nav-link">
+                    <i class="fas fa-phone"></i> Contact
+                </a>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="btn btn-outline" id="loginBtn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+                <button class="btn btn-primary" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> Register
+                </button>
+                <button class="menu-toggle" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="hero-content">
+            <h1 class="hero-title">Find Your Perfect Ride</h1>
+            <p class="hero-subtitle">India's Largest Marketplace for Premium Pre-Owned Cars & Bikes</p>
+            <div class="hero-search">
+                <div class="search-container">
+                    <input type="text" placeholder="Search cars, bikes, brands..." class="search-input">
+                    <select class="search-select">
+                        <option value="">All Categories</option>
+                        <option value="car">Cars</option>
+                        <option value="bike">Bikes</option>
+                        <option value="suv">SUV</option>
+                        <option value="sedan">Sedan</option>
+                    </select>
+                    <select class="search-select">
+                        <option value="">Location</option>
+                        <option value="mumbai">Mumbai</option>
+                        <option value="delhi">Delhi</option>
+                        <option value="bangalore">Bangalore</option>
+                    </select>
+                    <button class="search-btn">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <h3>10,000+</h3>
+                    <p>Vehicles Listed</p>
+                </div>
+                <div class="stat-item">
+                    <h3>2,500+</h3>
+                    <p>Happy Customers</p>
+                </div>
+                <div class="stat-item">
+                    <h3>98%</h3>
+                    <p>Satisfaction Rate</p>
+                </div>
+                <div class="stat-item">
+                    <h3>24/7</h3>
+                    <p>Support Available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Vehicles -->
+    <section class="section featured-section" id="vehicles">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Featured Vehicles</h2>
+                <p class="section-subtitle">Curated selection of premium pre-owned vehicles</p>
+                <div class="section-controls">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="car">
+                        <i class="fas fa-car"></i> Cars
+                    </button>
+                    <button class="filter-btn" data-filter="bike">
+                        <i class="fas fa-motorcycle"></i> Bikes
+                    </button>
+                    <button class="filter-btn" data-filter="luxury">
+                        <i class="fas fa-gem"></i> Luxury
+                    </button>
+                </div>
+            </div>
+            
+            <div class="vehicles-grid" id="vehiclesGrid">
+                <!-- Vehicles loaded by JS -->
+            </div>
+            
+            <div class="text-center">
+                <button class="btn btn-primary btn-lg" id="viewAllBtn">
+                    <i class="fas fa-eye"></i> View All Vehicles
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="section steps-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">How AutoBazaar Works</h2>
+                <p class="section-subtitle">Simple, Secure, and Transparent Process</p>
+            </div>
+            
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-search"></i>
+                        <div class="step-number">1</div>
+                    </div>
+                    <h3>Browse & Select</h3>
+                    <p>Explore our verified inventory with detailed inspections</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-file-contract"></i>
+                        <div class="step-number">2</div>
+                    </div>
+                    <h3>Schedule Inspection</h3>
+                    <p>Book a free test drive and professional inspection</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-credit-card"></i>
+                        <div class="step-number">3</div>
+                    </div>
+                    <h3>Secure Payment</h3>
+                    <p>Multiple payment options with 100% secure transactions</p>
+                </div>
+                
+                <div class="step-card">
+                    <div class="step-icon">
+                        <i class="fas fa-key"></i>
+                        <div class="step-number">4</div>
+                    </div>
+                    <h3>Drive Home</h3>
+                    <p>Complete paperwork and drive home with warranty</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sell Section -->
+    <section class="section sell-section" id="sell">
+        <div class="container">
+            <div class="sell-banner">
+                <div class="sell-content">
+                    <h2>Sell Your Vehicle with Confidence</h2>
+                    <p>Get the best price for your car or bike with our expert valuation</p>
+                    <ul class="sell-features">
+                        <li><i class="fas fa-check-circle"></i> Free Vehicle Inspection</li>
+                        <li><i class="fas fa-check-circle"></i> Instant Payment</li>
+                        <li><i class="fas fa-check-circle"></i> Paperwork Assistance</li>
+                        <li><i class="fas fa-check-circle"></i> Nationwide Buyer Network</li>
+                    </ul>
+                    <button class="btn btn-secondary btn-lg" id="sellNowBtn">
+                        <i class="fas fa-tag"></i> Sell Now
+                    </button>
+                </div>
+                <div class="sell-image"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">What Our Customers Say</h2>
+                <p class="section-subtitle">Join thousands of satisfied vehicle owners</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Bought my dream bike through AutoBazaar. The verification process gave me complete peace of mind!"</p>
+                    <div class="testimonial-author">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            RK
+                        </div>
+                        <div>
+                            <h4>Rajesh Kumar</h4>
+                            <span>Yamaha R15 Owner</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p>"Sold my car in 2 days! AutoBazaar's network and support made the process effortless."</p>
+                    <div class="testimonial-author">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            PS
+                        </div>
+                        <div>
+                            <h4>Priya Sharma</h4>
+                            <span>Honda City Seller</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p>"Excellent service! The detailed inspection report helped me make an informed decision."</p>
+                    <div class="testimonial-author">
+                        <div style="width: 50px; height: 50px; border-radius: 50%; background: var(--success); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                            AP
+                        </div>
+                        <div>
+                            <h4>Amit Patel</h4>
+                            <span>Hyundai Creta Buyer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contact Us</h2>
+                <p class="section-subtitle">Get in touch with our automotive experts</p>
+            </div>
+            
+            <div class="contact-container">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h3>Visit Our Showroom</h3>
+                            <p>123 Auto Street, Mumbai, Maharashtra 400001</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div>
+                            <h3>Call Us</h3>
+                            <p>+91 98765 43210</p>
+                            <p>Mon-Sun: 8:00 AM - 10:00 PM</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h3>Email Us</h3>
+                            <p>support@autobazaar.com</p>
+                            <p>sales@autobazaar.com</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <input type="text" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Your Phone" required>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="">Select Service</option>
+                                <option value="buy">Buy Vehicle</option>
+                                <option value="sell">Sell Vehicle</option>
+                                <option value="other">Other Query</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Your Message" rows="4" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 1rem;">
+                        <i class="fas fa-car"></i>
+                        <span class="logo-text">Auto<span class="logo-highlight">Bazaar</span></span>
+                    </div>
+                    <p>India's trusted marketplace for pre-owned cars and bikes.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#buy">Buy Vehicle</a></li>
+                        <li><a href="#sell">Sell Vehicle</a></li>
+                        <li><a href="#vehicles">Featured Vehicles</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h3>Categories</h3>
+                    <ul>
+                        <li><a href="#">Sedan Cars</a></li>
+                        <li><a href="#">SUV Cars</a></li>
+                        <li><a href="#">Sports Bikes</a></li>
+                        <li><a href="#">Commuter Bikes</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 AutoBazaar. All rights reserved.</p>
+                <div class="payment-methods-footer">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login/Register Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-tab="login">Login</button>
+                    <button class="auth-tab" data-tab="register">Register</button>
+                </div>
+                
+                <div class="auth-form active" id="loginForm">
+                    <div class="form-header">
+                        <h3>Welcome Back</h3>
+                        <p>Login to your AutoBazaar account</p>
+                    </div>
+                    <form id="loginFormData">
+                        <div class="form-group">
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" placeholder="Password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </form>
+                </div>
+                
+                <div class="auth-form" id="registerForm">
+                    <div class="form-header">
+                        <h3>Create Account</h3>
+                        <p>Join AutoBazaar community</p>
+                    </div>
+                    <form id="registerFormData">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" placeholder="Email Address" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="tel" placeholder="Phone Number" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="City" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Address" rows="2" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="">I want to...</option>
+                                <option value="buy">Buy Vehicles</option>
+                                <option value="sell">Sell Vehicles</option>
+                                <option value="both">Both</option>
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="password" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="password" placeholder="Confirm Password" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="fas fa-user-plus"></i> Create Account
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sell Vehicle Modal -->
+    <div class="modal" id="sellModal">
+        <div class="modal-content" style="max-width: 800px;">
+            <span class="close-modal">&times;</span>
+            <div class="modal-body">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--secondary);">Sell Your Vehicle</h2>
+                <form id="sellVehicleForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label style="display: block; margin-bottom: 8px; color: var(--secondary);">Vehicle Type</label>
+                            <div style="display: flex; gap: 2rem;">
+                                <label style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="radio" name="vehicleType" value="car" checked>
+                                    <i class="fas fa-car"></i> Car
+                                </label>
+                                <label style="display: flex; align-items: center; gap: 8px;">
+                                    <input type="radio" name="vehicleType" value="bike">
+                                    <i class="fas fa-motorcycle"></i> Bike
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" placeholder="Vehicle Brand & Model" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Registration Number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="text" placeholder="RC Number" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" placeholder="Model Year" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <input type="number" placeholder="Price (₹)" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" placeholder="Kilometers Driven" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <select required>
+                                <option value="">Fuel Type</option>
+                                <option value="petrol">Petrol</option>
+                                <option value="diesel">Diesel</option>
+                                <option value="electric">Electric</option>
+                                <option value="cng">CNG</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="">Transmission</option>
+                                <option value="manual">Manual</option>
+                                <option value="automatic">Automatic</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <textarea placeholder="Description (condition, features, reason for selling...)" rows="4" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label style="display: block; margin-bottom: 8px; color: var(--secondary);">Upload Photos (Minimum 5)</label>
+                        <div style="border: 2px dashed var(--light-gray); border-radius: var(--radius-lg); padding: 2rem; text-align: center; cursor: pointer;" id="uploadZone">
+                            <i class="fas fa-cloud-upload-alt" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
+                            <p>Click or drag to upload vehicle photos</p>
+                            <small>Maximum 10 photos, 5MB each</small>
+                            <input type="file" multiple accept="image/*" style="display: none;" id="photoUpload">
+                        </div>
+                        <div id="photoPreview" style="margin-top: 1rem;"></div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">
+                        <i class="fas fa-tag"></i> List Vehicle for Sale
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ====== GLOBAL DATA ======
+        const vehiclesData = [
+            {
+                id: 1,
+                name: "Honda City VX CVT",
+                type: "car",
+                price: "8,50,000",
+                year: 2020,
+                km: "25,000",
+                fuel: "Petrol",
+                transmission: "Automatic",
+                location: "Mumbai",
+                image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 2,
+                name: "Yamaha R15 V3",
+                type: "bike",
+                price: "1,85,000",
+                year: 2021,
+                km: "12,000",
+                fuel: "Petrol",
+                transmission: "Manual",
+                location: "Delhi",
+                image: "https://images.unsplash.com/photo-1558981403-c5f9899a28bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 3,
+                name: "Hyundai Creta SX",
+                type: "car",
+                price: "12,50,000",
+                year: 2019,
+                km: "35,000",
+                fuel: "Diesel",
+                transmission: "Automatic",
+                location: "Bangalore",
+                image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 4,
+                name: "Royal Enfield Classic 350",
+                type: "bike",
+                price: "1,95,000",
+                year: 2022,
+                km: "8,000",
+                fuel: "Petrol",
+                transmission: "Manual",
+                location: "Chennai",
+                image: "https://images.unsplash.com/photo-1621272035993-6a1f5e8d7b2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 5,
+                name: "Maruti Suzuki Swift",
+                type: "car",
+                price: "5,75,000",
+                year: 2018,
+                km: "40,000",
+                fuel: "Petrol",
+                transmission: "Manual",
+                location: "Hyderabad",
+                image: "https://images.unsplash.com/photo-1593941707882-a5bba5338fe2?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+            },
+            {
+                id: 6,
+                name: "KTM Duke 200",
+                type: "bike",
+                price: "1,65,000",
+                year: 2020,
+                km: "15,000",
+                fuel: "Petrol",
+                transmission: "Manual",
+                location: "Pune",
+                image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
+            }
+        ];
+
+        // ====== DOM ELEMENTS ======
+        const navMenu = document.getElementById('navMenu');
+        const menuToggle = document.getElementById('menuToggle');
+        const authModal = document.getElementById('authModal');
+        const sellModal = document.getElementById('sellModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const registerBtn = document.getElementById('registerBtn');
+        const sellNowBtn = document.getElementById('sellNowBtn');
+        const viewAllBtn = document.getElementById('viewAllBtn');
+        const vehiclesGrid = document.getElementById('vehiclesGrid');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const closeModalBtns = document.querySelectorAll('.close-modal');
+        const authTabs = document.querySelectorAll('.auth-tab');
+        const authForms = document.querySelectorAll('.auth-form');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const uploadZone = document.getElementById('uploadZone');
+        const photoUpload = document.getElementById('photoUpload');
+
+        // ====== INITIALIZATION ======
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load vehicles
+            renderVehicles(vehiclesData);
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Handle scroll effects
+            window.addEventListener('scroll', handleScroll);
+            
+            // Set active nav link
+            setActiveNavLink();
+        });
+
+        // ====== RENDER FUNCTIONS ======
+        function renderVehicles(vehicles) {
+            vehiclesGrid.innerHTML = '';
+            
+            vehicles.forEach(vehicle => {
+                const vehicleCard = document.createElement('div');
+                vehicleCard.className = 'vehicle-card';
+                vehicleCard.setAttribute('data-type', vehicle.type);
+                
+                vehicleCard.innerHTML = `
+                    <div class="vehicle-badge">${vehicle.type === 'car' ? 'Car' : 'Bike'}</div>
+                    <div class="vehicle-image">
+                        <img src="${vehicle.image}" alt="${vehicle.name}">
+                    </div>
+                    <div class="vehicle-info">
+                        <h3 class="vehicle-title">${vehicle.name}</h3>
+                        <div class="vehicle-price">₹${vehicle.price}</div>
+                        <div class="vehicle-details">
+                            <div class="detail-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>${vehicle.year}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span>${vehicle.km} km</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-gas-pump"></i>
+                                <span>${vehicle.fuel}</span>
+                            </div>
+                            <div class="detail-item">
+                                <i class="fas fa-cog"></i>
+                                <span>${vehicle.transmission}</span>
+                            </div>
+                        </div>
+                        <div class="vehicle-actions">
+                            <button class="btn btn-outline view-details" data-id="${vehicle.id}">
+                                <i class="fas fa-eye"></i> View Details
+                            </button>
+                            <button class="btn btn-primary buy-now" data-id="${vehicle.id}">
+                                <i class="fas fa-shopping-cart"></i> Buy Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                vehiclesGrid.appendChild(vehicleCard);
+            });
+            
+            // Add event listeners to new buttons
+            document.querySelectorAll('.view-details').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    showVehicleDetails(id);
+                });
+            });
+            
+            document.querySelectorAll('.buy-now').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    buyVehicle(id);
+                });
+            });
+        }
+
+        // ====== EVENT HANDLERS ======
+        function setupEventListeners() {
+            // Mobile menu toggle
+            menuToggle.addEventListener('click', () => {
+                navMenu.classList.toggle('active');
+                menuToggle.innerHTML = navMenu.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) {
+                    navMenu.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+
+            // Auth modal
+            loginBtn.addEventListener('click', () => openModal('authModal', 'login'));
+            registerBtn.addEventListener('click', () => openModal('authModal', 'register'));
+
+            // Sell modal
+            sellNowBtn.addEventListener('click', () => openModal('sellModal'));
+            viewAllBtn.addEventListener('click', () => openModal('sellModal'));
+
+            // Close modals
+            closeModalBtns.forEach(btn => {
+                btn.addEventListener('click', closeAllModals);
+            });
+
+            // Click outside modal to close
+            window.addEventListener('click', (e) => {
+                if (e.target.classList.contains('modal')) {
+                    closeAllModals();
+                }
+            });
+
+            // Auth tabs
+            authTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabName = tab.getAttribute('data-tab');
+                    switchAuthTab(tabName);
+                });
+            });
+
+            // Filter buttons
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const filter = this.getAttribute('data-filter');
+                    filterVehicles(filter);
+                });
+            });
+
+            // Nav links
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    // Add active class to clicked link
+                    this.classList.add('active');
+                    
+                    // Close mobile menu
+                    navMenu.classList.remove('active');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    
+                    // Scroll to section
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetSection = document.getElementById(targetId);
+                    if (targetSection) {
+                        window.scrollTo({
+                            top: targetSection.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Form submissions
+            document.getElementById('loginFormData').addEventListener('submit', handleLogin);
+            document.getElementById('registerFormData').addEventListener('submit', handleRegister);
+            document.getElementById('sellVehicleForm').addEventListener('submit', handleSellVehicle);
+            document.getElementById('contactForm').addEventListener('submit', handleContact);
+
+            // Photo upload
+            uploadZone.addEventListener('click', () => photoUpload.click());
+            uploadZone.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                uploadZone.style.borderColor = 'var(--primary)';
+                uploadZone.style.background = 'rgba(255, 77, 0, 0.05)';
+            });
+            uploadZone.addEventListener('dragleave', () => {
+                uploadZone.style.borderColor = 'var(--light-gray)';
+                uploadZone.style.background = 'white';
+            });
+            uploadZone.addEventListener('drop', (e) => {
+                e.preventDefault();
+                uploadZone.style.borderColor = 'var(--light-gray)';
+                uploadZone.style.background = 'white';
+                handleImageUpload(e.dataTransfer.files);
+            });
+            photoUpload.addEventListener('change', (e) => handleImageUpload(e.target.files));
+        }
+
+        function handleScroll() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        }
+
+        function setActiveNavLink() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 150)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').substring(1) === current) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        }
+
+        // ====== MODAL FUNCTIONS ======
+        function openModal(modalId, tab = 'login') {
+            const modal = document.getElementById(modalId);
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+            
+            if (modalId === 'authModal') {
+                switchAuthTab(tab);
+            }
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+            document.body.style.overflow = 'auto';
+        }
+
+        function switchAuthTab(tabName) {
+            // Update tabs
+            authTabs.forEach(tab => {
+                tab.classList.toggle('active', tab.getAttribute('data-tab') === tabName);
+            });
+            
+            // Update forms
+            authForms.forEach(form => {
+                form.classList.toggle('active', form.id === `${tabName}Form`);
+            });
+        }
+
+        // ====== VEHICLE FUNCTIONS ======
+        function filterVehicles(filter) {
+            let filteredVehicles;
+            
+            if (filter === 'all') {
+                filteredVehicles = vehiclesData;
+            } else if (filter === 'car') {
+                filteredVehicles = vehiclesData.filter(v => v.type === 'car');
+            } else if (filter === 'bike') {
+                filteredVehicles = vehiclesData.filter(v => v.type === 'bike');
+            } else if (filter === 'luxury') {
+                filteredVehicles = vehiclesData.filter(v => v.price.includes(',') && parseInt(v.price.replace(/,/g, '')) > 1000000);
+            }
+            
+            renderVehicles(filteredVehicles);
+        }
+
+        function showVehicleDetails(id) {
+            const vehicle = vehiclesData.find(v => v.id == id);
+            if (vehicle) {
+                alert(`Vehicle Details:\n\nName: ${vehicle.name}\nPrice: ₹${vehicle.price}\nYear: ${vehicle.year}\nKilometers: ${vehicle.km}\nFuel: ${vehicle.fuel}\nTransmission: ${vehicle.transmission}\nLocation: ${vehicle.location}`);
+            }
+        }
+
+        function buyVehicle(id) {
+            const vehicle = vehiclesData.find(v => v.id == id);
+            if (vehicle) {
+                const proceed = confirm(`Buy ${vehicle.name} for ₹${vehicle.price}?\n\nClick OK to proceed to checkout.`);
+                if (proceed) {
+                    alert('Redirecting to checkout page...\n\nNote: This is a demo. In a real application, you would be redirected to the payment gateway.');
+                }
+            }
+        }
+
+        // ====== FORM HANDLERS ======
+        function handleLogin(e) {
+            e.preventDefault();
+            alert('Login successful! Welcome to AutoBazaar.');
+            closeAllModals();
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            alert('Registration successful! Welcome to AutoBazaar community.');
+            closeAllModals();
+        }
+
+        function handleSellVehicle(e) {
+            e.preventDefault();
+            
+            const photoPreview = document.getElementById('photoPreview');
+            const uploadedPhotos = photoPreview.querySelectorAll('img').length;
+            
+            if (uploadedPhotos < 5) {
+                alert('Please upload at least 5 photos of your vehicle.');
+                return;
+            }
+            
+            alert('Your vehicle has been listed successfully!\n\nOur team will contact you within 24 hours for vehicle inspection.');
+            closeAllModals();
+            
+            // Reset form
+            e.target.reset();
+            photoPreview.innerHTML = '';
+        }
+
+        function handleContact(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will contact you within 24 hours.');
+            e.target.reset();
+        }
+
+        function handleImageUpload(files) {
+            const photoPreview = document.getElementById('photoPreview');
+            
+            Array.from(files).forEach((file, index) => {
+                if (photoPreview.querySelectorAll('img').length >= 10) {
+                    alert('Maximum 10 photos allowed.');
+                    return;
+                }
+                
+                if (!file.type.startsWith('image/')) {
+                    alert('Please upload only image files.');
+                    return;
+                }
+                
+                if (file.size > 5 * 1024 * 1024) {
+                    alert('File size should be less than 5MB.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.width = '100px';
+                    img.style.height = '100px';
+                    img.style.objectFit = 'cover';
+                    img.style.borderRadius = 'var(--radius-sm)';
+                    img.style.margin = '5px';
+                    img.style.border = '2px solid var(--light-gray)';
+                    
+                    const container = document.createElement('div');
+                    container.style.position = 'relative';
+                    container.style.display = 'inline-block';
+                    container.appendChild(img);
+                    
+                    const removeBtn = document.createElement('button');
+                    removeBtn.innerHTML = '×';
+                    removeBtn.style.position = 'absolute';
+                    removeBtn.style.top = '0';
+                    removeBtn.style.right = '0';
+                    removeBtn.style.background = 'var(--danger)';
+                    removeBtn.style.color = 'white';
+                    removeBtn.style.border = 'none';
+                    removeBtn.style.borderRadius = '50%';
+                    removeBtn.style.width = '20px';
+                    removeBtn.style.height = '20px';
+                    removeBtn.style.cursor = 'pointer';
+                    removeBtn.style.fontSize = '12px';
+                    removeBtn.addEventListener('click', function() {
+                        container.remove();
+                    });
+                    
+                    container.appendChild(removeBtn);
+                    photoPreview.appendChild(container);
+                };
+                reader.readAsDataURL(file);
+            });
+            
+            photoUpload.value = '';
+        }
+
+        // ====== KEYBOARD SHORTCUTS ======
+        document.addEventListener('keydown', (e) => {
+            // Escape to close modals
+            if (e.key === 'Escape') {
+                closeAllModals();
+            }
+            
+            // Ctrl + / for search focus
+            if (e.ctrlKey && e.key === '/') {
+                e.preventDefault();
+                document.querySelector('.search-input').focus();
+            }
+        });
+
+        // ====== DEMO DATA GENERATOR ======
+        function generateDemoData() {
+            // Already have demo data
+            console.log('AutoBazaar Demo Loaded');
+            console.log('Try:');
+            console.log('- Click on vehicles to view details');
+            console.log('- Use filter buttons to filter vehicles');
+            console.log('- Click Buy/Sell buttons');
+            console.log('- Submit forms');
+            console.log('- Try mobile responsive view');
+        }
+
+        // Initialize demo
+        generateDemoData();
+    </script>
+</body>
+</html>
